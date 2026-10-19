@@ -1,0 +1,19 @@
+[project]
+name = "python-advanced"
+version = "0.1.0"
+description = "German Python training — Advanced track (labs 00–17)."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "flask",
+    "numpy",
+    "pandas",
+    "pydantic-settings",
+    "pytest",
+    "pytest-mock",
+    "python-json-logger",
+    "requests",
+    "sqlalchemy",
+]
+
+[tool.uv]
+package = false

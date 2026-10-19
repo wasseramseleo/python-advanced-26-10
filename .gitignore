@@ -1,0 +1,21 @@
+# Python-Umgebung und Caches
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Laufzeit-Artefakte der Labs und Demos
+*.log
+log_account_*.txt
+app.db
+
+# Entpackte Musterlösungen vom Fileshare
+musterloesung_tag*/
+musterloesungen_tag*.zip
+
+# Editoren und Betriebssystem
+.idea/
+.vscode/
+.DS_Store
