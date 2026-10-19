@@ -73,7 +73,8 @@ Wir müssen die Transaktionslogik unserer Bank-App "produktionsreif" machen.
 
 1.  **`else` und `finally`:**
 
-      * Erweitern Sie den `try...except`-Block in Ihrer `perform_transaction`-Funktion:
+      * Kopieren Sie Ihre `main.py` nach `main_bonus.py` und benennen Sie die Funktion dort in `perform_transaction_robust` um. So bleibt `main.py` unverändert.
+      * Erweitern Sie den `try...except`-Block in `perform_transaction_robust`:
       * **`else`:** Fügen Sie einen `else`-Block hinzu. Dieser wird *nur* ausgeführt, wenn *keine* Exception aufgetreten ist. Geben Sie hier eine Erfolgsmeldung aus (z.B. `print(f"Transaktion erfolgreich verbucht. Neuer Saldo: {account.get_balance():.2f} EUR")`).
       * **`finally`:** Fügen Sie einen `finally`-Block hinzu. Dieser wird *immer* ausgeführt. Geben Sie hier eine "Aufräum-"Nachricht aus (z.B. `print("--- Transaktionsverarbeitung beendet ---")`).
 
@@ -81,7 +82,7 @@ Wir müssen die Transaktionslogik unserer Bank-App "produktionsreif" machen.
 
       * Stellen Sie sich vor, *vor* jeder Abhebung muss ein externer Betrugsprüfungs-Dienst (Fraud-Service) kontaktiert werden. Dieser Dienst kann `ConnectionError` oder `TimeoutError` werfen.
       * **`exceptions.py`:** Fügen Sie eine neue Exception hinzu: `class FraudServiceError(BankingError): pass`
-      * **`main.py`:** Passen Sie `perform_transaction` für Abhebungen (`withdraw`) an:
+      * **`main_bonus.py`:** Passen Sie `perform_transaction_robust` für Abhebungen (`withdraw`) an:
           * Simulieren Sie im `try`-Block (vor dem `account.withdraw`-Aufruf) einen Fehler:
         <!-- end list -->
         ```python

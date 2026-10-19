@@ -2,7 +2,7 @@
 
 ## Ziel
 
-Dieses Lab stellt sicher, dass Ihre lokale Entwicklungsumgebung (Windows) korrekt für den Kurs konfiguriert ist. Wir verwenden in diesem Kurs ausschließlich **uv** – einen extrem schnellen, modernen Python-Paketmanager – und zielen auf **Python 3.12**.
+Dieses Lab stellt sicher, dass Ihre lokale Entwicklungsumgebung (Windows) korrekt für den Kurs konfiguriert ist. Wir verwenden in diesem Kurs ausschließlich **uv** – einen extrem schnellen, modernen Python-Paketmanager – und zielen auf **Python 3.12** (nur noch Sicherheits-Updates; aktuell sind 3.14 und 3.15).
 
 **Bitte führen Sie alle Schritte sorgfältig aus und bitten Sie den Trainer um Hilfe, falls ein Befehl fehlschlägt.**
 
@@ -24,13 +24,13 @@ Dieses Lab stellt sicher, dass Ihre lokale Entwicklungsumgebung (Windows) korrek
     uv --version
     ```
 
-**Erwartetes Ergebnis:** Sie sollten eine Versionsnummer sehen (z.B. `uv 0.5.x`).
+**Erwartetes Ergebnis:** Sie sollten eine Versionsnummer sehen (z.B. `uv 0.x.y`). Die genaue Version ist nicht entscheidend; eine ältere Installation bringen Sie mit `uv self update` auf den aktuellen Stand.
 
   * **Falls `uv` nicht gefunden wird:**
     Installieren Sie es über PowerShell (empfohlen vom `uv`-Team):
 
     ```powershell
-    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
     ```
 
     Schließen Sie nach der Installation Ihre Konsole und öffnen Sie eine neue, bevor Sie `uv --version` erneut versuchen.

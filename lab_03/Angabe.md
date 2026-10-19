@@ -65,13 +65,14 @@ Das `with`-Statement ist nicht nur für Dateien nützlich. Man kann *eigene* Con
           * Die Endzeit berechnen: `end_time = time.perf_counter()`.
           * Die Dauer berechnen: `duration = end_time - self.start_time`.
           * Eine formatierte Nachricht ausgeben: `print(f"[{self.name}] Code-Block beendet in {duration:.6f} Sekunden")`.
-4.  **In `main.py` anwenden:**
+4.  **In `main_bonus.py` anwenden:**
+      * Kopieren Sie Ihre `main.py` nach `main_bonus.py`, damit `main.py` unverändert bleibt.
       * Importieren Sie den Timer: `from utils import CodeTimer`.
-      * Umschließen Sie in Ihrer `main.py` einen Block von Transaktionen (z.B. 10 Einzahlungen in einer `for`-Schleife) mit Ihrem neuen Timer:
+      * Umschließen Sie in Ihrer `main_bonus.py` einen Block von Transaktionen (z.B. 10 Einzahlungen in einer `for`-Schleife) mit Ihrem neuen Timer:
     <!-- end list -->
     ```python
     with CodeTimer(name="Batch-Einzahlung"):
         for _ in range(10):
             acc1.deposit(5.0)
     ```
-      * Führen Sie `main.py` aus und beobachten Sie die Ausgabe des Timers in der Konsole.
+      * Führen Sie `main_bonus.py` aus und beobachten Sie die Ausgabe des Timers in der Konsole.
