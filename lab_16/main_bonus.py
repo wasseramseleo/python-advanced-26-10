@@ -20,27 +20,18 @@ engine = create_engine(f"sqlite:///{DB_PATH}")
 
 
 # 1. Alle Konten via ORM lesen
-#    TODO: Eröffnen Sie eine `Session(engine)`, bauen Sie ein
-#    `select(Account).order_by(Account.account_number)`-Statement und
-#    geben Sie alle Accounts aus (jedes Objekt hat .account_number,
-#    .owner, .balance).
+#    TODO: Eröffnen Sie eine `Session(engine)`, lesen Sie mit `select(...)`
+#    alle Accounts sortiert nach `account_number` und geben Sie sie aus
+#    (jedes Objekt hat .account_number, .owner, .balance).
 
 # print("--- 1. Alle Konten (ORM) ---")
-# with Session(engine) as session:
-#     stmt = select(Account).order_by(Account.account_number)
-#     for account in session.execute(stmt).scalars():
-#         print(account)
 
 
 # 2. Ein Konto per Nummer holen
-#    TODO: Bauen Sie `select(Account).where(Account.account_number == "AT001")`
-#    und holen Sie genau einen Treffer mit `.scalar_one_or_none()`.
+#    TODO: Holen Sie mit `select(...)` und `.where(...)` den Account
+#    "AT001" — genau einen Treffer oder `None`.
 
 # print("\n--- 2. find_account('AT001') (ORM) ---")
-# with Session(engine) as session:
-#     stmt = select(Account).where(Account.account_number == "AT001")
-#     account = session.execute(stmt).scalar_one_or_none()
-#     print(account)
 
 
 # 3. Transaktionen über die `relationship` lesen
@@ -48,12 +39,6 @@ engine = create_engine(f"sqlite:///{DB_PATH}")
 #    automatisch nachgeladen. Kein JOIN-SQL nötig.
 
 # print("\n--- 3. Transaktionen für AT001 (ORM) ---")
-# with Session(engine) as session:
-#     account = session.execute(
-#         select(Account).where(Account.account_number == "AT001")
-#     ).scalar_one()
-#     for tx in account.transactions:
-#         print(f"  {tx.timestamp}  {tx.kind:8s}  {tx.amount:8.2f} EUR")
 
 
 # 4. Neuen Account + Transaktion einfügen
@@ -67,15 +52,3 @@ engine = create_engine(f"sqlite:///{DB_PATH}")
 #    (Idempotenz-Tipp siehe Angabe).
 
 # print("\n--- 4. Neuen Account einfügen ---")
-# with Session(engine) as session:
-#     new_account = Account(
-#         account_number="AT999",
-#         owner="Neuer Kunde",
-#         balance=100.0,
-#         transactions=[
-#             Transaction(kind="DEPOSIT", amount=100.0, timestamp="2026-05-01T12:00:00")
-#         ],
-#     )
-#     session.add(new_account)
-#     session.commit()
-#     print(f"Eingefügt: {new_account}")

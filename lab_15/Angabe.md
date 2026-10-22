@@ -78,15 +78,10 @@ und `pytest.raises`.
 
     * Erstellen Sie `test_withdraw_negative_amount(basic_account)`.
     * Die `withdraw`-Methode soll (laut Anforderung) einen `ValueError` auslösen, wenn der Betrag negativ ist.
-    * **Act/Assert (kombiniert):** Verwenden Sie den `pytest.raises`-Kontextmanager, um zu prüfen, ob die Exception
-      ausgelöst wird:
-      ```python
-      with pytest.raises(ValueError) as e:
-          basic_account.withdraw(-50.0)
-
-      # Optional: Prüfen Sie die Fehlermeldung
-      assert "muss positiv sein" in str(e.value)
-      ```
+    * **Act/Assert (kombiniert):** Verwenden Sie den `pytest.raises`-Kontextmanager, um zu prüfen, ob
+      `basic_account.withdraw(-50.0)` einen `ValueError` auslöst.
+    * **Optional:** Prüfen Sie zusätzlich die Fehlermeldung. Mit `as e` erhalten Sie Zugriff auf die Exception
+      (`e.value`); die Meldung soll „muss positiv sein“ enthalten.
     * **Assert:** `assert basic_account.get_balance() == 100.0` (Saldo unverändert).
 
 -----
@@ -128,8 +123,8 @@ Betrugsprüfungs-API durch Mocking.
         * **Assert:**
             * `assert basic_account.get_balance() == 50.0` (Der Test ist bestanden).
             * **WICHTIG (Mock-Prüfung):** Stellen Sie sicher, dass die API *tatsächlich* mit den korrekten Daten
-              aufgerufen wurde:
-              `mock_api.assert_called_once_with("AT123", 50.0)`
+              aufgerufen wurde: genau einmal, mit Kontonummer und Betrag. Das Mock-Objekt bietet dafür
+              `assert_called...`-Methoden.
 
 ## `external_services.py` (externe Abhängigkeit)
 

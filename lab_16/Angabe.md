@@ -54,25 +54,14 @@ balance         REAL              amount          REAL
 2.  **`find_account(conn, account_number) -> Mapping | None`**:
 
       * Holt genau einen Datensatz aus `accounts` per `account_number` (z.B. `"AT001"`).
-      * Verwenden Sie eine **parametrisierte Query** mit `:number` als Platzhalter:
-        ```python
-        stmt = text("SELECT id, account_number, owner, balance FROM accounts WHERE account_number = :number")
-        row = conn.execute(stmt, {"number": account_number}).mappings().first()
-        ```
+      * Verwenden Sie eine **parametrisierte Query**: Formulieren Sie das SQL mit `text(...)` und dem Platzhalter `:number`, übergeben Sie den Wert beim `conn.execute(...)` als Dictionary und holen Sie mit `.mappings().first()` die erste Row.
       * Gibt die Row als Mapping zurück (zugreifbar via `row["owner"]`) — oder `None`, wenn nichts gefunden wurde.
       * **Wichtig:** Bauen Sie das SQL niemals via f-string mit dem `account_number`-Wert zusammen — das öffnet die Tür für SQL-Injection!
 
 3.  **`list_transactions(conn, account_number) -> list[Mapping]`**:
 
       * Gibt alle Transaktionen eines Kontos (sortiert nach `timestamp` aufsteigend) zurück.
-      * Hier brauchen Sie einen `JOIN`, weil die `transactions`-Tabelle nur die numerische `account_id` kennt, Sie aber per `account_number` suchen wollen:
-        ```sql
-        SELECT t.timestamp, t.kind, t.amount
-        FROM transactions AS t
-        JOIN accounts AS a ON t.account_id = a.id
-        WHERE a.account_number = :number
-        ORDER BY t.timestamp ASC
-        ```
+      * Hier brauchen Sie einen `JOIN`, weil die `transactions`-Tabelle nur die numerische `account_id` kennt, Sie aber per `account_number` suchen wollen. Verknüpfen Sie `transactions` mit `accounts` über `account_id = accounts.id`, filtern Sie nach `account_number` (wieder mit `:number`) und sortieren Sie nach `timestamp`. Selektieren Sie `timestamp`, `kind` und `amount`.
       * Geben Sie eine Liste von Mappings zurück.
 
 4.  **`total_balance(conn) -> float`**:
@@ -109,8 +98,8 @@ balance         REAL              amount          REAL
 2.  **Queries mit `select()`**:
 
       * Eröffnen Sie eine `Session(engine)` als Kontextmanager.
-      * Alle Konten lesen: `stmt = select(Account).order_by(Account.account_number)` → `session.execute(stmt).scalars()`.
-      * Einen Account holen: `select(Account).where(Account.account_number == "AT001")` → `.scalar_one_or_none()`.
+      * Alle Konten lesen: Bauen Sie das Statement mit `select(...)` und `.order_by(...)` und führen Sie es mit `session.execute(...)` aus. `.scalars()` liefert die `Account`-Objekte statt Rows.
+      * Einen Account holen: `select(...)` mit `.where(...)` auf `account_number`, genau ein Treffer oder `None` mit `.scalar_one_or_none()`.
       * Transaktionen eines Kontos: Statt JOIN einfach `account.transactions` lesen — die Beziehung wird automatisch nachgeladen.
 
 3.  **Insert via Session**:
